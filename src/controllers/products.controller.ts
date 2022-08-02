@@ -7,6 +7,11 @@ const productsController = {
     const product = await productsService.get(id);
     res.status(201).json(product);
   },
+
+  async list(_req: Request, res: Response) {
+    const products = await productsService.list();
+    res.status(200).json(products);
+  },
 };
 
 export default productsController;

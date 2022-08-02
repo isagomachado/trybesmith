@@ -1,4 +1,5 @@
 import Joi from 'joi';
+import NotFoundError from '../errors/not-found.error';
 import productsModel from '../models/products.model';
 import { AddProduct, Indexable, Product } from '../types';
 
@@ -30,8 +31,21 @@ const productsService = {
 
   async get(id: Product['id']): Promise<Product> {
     const product = await productsModel.get(id);
+    if (!product) throw new NotFoundError('product not found');
     return product;
   },
+
+  async list(): Promise<Product[]> {
+    const products = await productsModel.list();
+    if (!products) throw new NotFoundError('products not found');
+    return products;
+  },
+
+  async exists(id: Product['id']): Promise<void> {
+    const exists = await productsModel.exists(id);
+    if (!exists) throw new NotFoundError('product not found');
+  },
+
 };
 
 export default productsService;

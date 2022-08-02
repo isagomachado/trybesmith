@@ -29,6 +29,30 @@ const productsModel = {
     
     return item as Product;
   },
+
+  async list(): Promise<Product[]> {
+    const sql = `
+      SELECT *
+      FROM Trybesmith.Products
+    `;
+
+    const [item] = await connection.query<RowDataPacket[]>(sql);
+    
+    return item as Product[];
+  },
+
+  async exists(id: Product['id']): Promise<boolean> {
+    const sql = `
+      SELECT 1
+      FROM Trybesmith.Products
+      WHERE id = (?)
+    `;
+
+    const [[item]] = await connection.query<RowDataPacket[]>(sql, [id]);
+    
+    return !!item;
+  },
+
 };
 
 export default productsModel;
