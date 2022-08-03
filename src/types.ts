@@ -8,3 +8,12 @@ export type Product = Indexable & {
 };
 
 export type AddProduct = Omit<Product, 'id'>;
+
+export type User = Indexable & {
+  username: string
+  classe: string
+  level: number
+  password: string
+};
+
+export type AddUser = Omit<User, 'id'>;
