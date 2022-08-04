@@ -3,7 +3,8 @@ import productsService from '../services/products.service';
 
 const productsController = {
   async add(req: Request, res: Response) {
-    const id = await productsService.add(req.body);
+    const validateBody = await productsService.validateBody(req.body);
+    const id = await productsService.add(validateBody);
     const product = await productsService.get(id);
     res.status(201).json(product);
   },

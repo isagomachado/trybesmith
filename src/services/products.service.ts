@@ -12,17 +12,14 @@ const productsService = {
     return result;
   },
 
-  // async validateBody(unknown: unknown) {
-  //   const schema = Joi.object<AddProduct> ({
-  //     name: Joi.string().required().min(2)
-  //       .message: Record<string, string> ({
-  //         'any.required': '"name" is required',
-  //         'array.min': '"name" length must be at least 5 characters long',
-  //       })
-  //   });
-  //   const result = schema.validateAsync(unknown);
-  //   return result;
-  // },
+  async validateBody(unknown: unknown) {
+    const schema = Joi.object<AddProduct>({
+      name: Joi.string().required().min(3),
+      amount: Joi.string().required().min(3),
+    });
+    const result = schema.validateAsync(unknown);
+    return result;
+  },
   
   async add(data: AddProduct): Promise<Product['id']> {
     const id = await productsModel.add(data);
