@@ -3,7 +3,8 @@ import usersService from '../services/users.service';
 
 const usersController = {
   async add(req: Request, res: Response) {
-    const id = await usersService.add(req.body);
+    const validateBody = await usersService.validateBody(req.body);
+    const id = await usersService.add(validateBody);
     const user = await usersService.get(id);
     const token = await usersService.makeToken(user);
     res.status(201).json({ token });
