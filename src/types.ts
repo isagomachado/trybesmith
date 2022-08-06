@@ -17,3 +17,8 @@ export type User = Indexable & {
 };
 
 export type AddUser = Omit<User, 'id'>;
+
+export type Order = Indexable & {
+  userId: number
+  productsIds: number[]
+};
